@@ -20,9 +20,6 @@ def menu():
     print("If you want to delete an entry from the address book select delete ")
     print("If you are finishing for today select end")
 
-
-
-
 def print_dict():
     print("It is your Adress book --> ")
     for key in dict_book:
@@ -48,11 +45,6 @@ def delete_dict():
 def end_dict():
     print(f"Goodbay We conclude for today. See you in a short time {user_name}")
 
-# Częśś główna
-
-menu()
-user_choose=input(f" So {user_name.title()}, what we do ? --> ")
-user_choose.lower()
 
 def choose(user_choose):
     if user_choose.lower() =="display":
@@ -63,4 +55,25 @@ def choose(user_choose):
         delete_dict()
     elif user_choose.lower()=="end":
         end_dict()
+
+
+def next_choose():
+    response = (input("would you like to do something else  ? ( yes or no )---> ")).lower()
+    if response == "yes":
+        return True
+    else:
+        return False
+
+# Częśś główna
+
+menu()
+user_choose=input(f" So {user_name.title()}, what we do ? --> ")
+user_choose.lower()
 choose(user_choose)
+
+while next_choose():
+    menu()
+    user_choose = input(f" So {user_name.title()}, what we do ? --> ")
+    user_choose.lower()
+    choose(user_choose)
+print(f"Goodbay We conclude for today. See you in a short time {user_name}")
