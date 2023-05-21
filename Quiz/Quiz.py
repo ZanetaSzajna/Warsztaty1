@@ -51,21 +51,61 @@ list_question= list(question.keys())
 print(list_question)
 
 def new_game():
-    answer=[]
-    correct_answer=0
-    question_number=1
-    random_question=random.choice(list_question)
-    print(random_question)
-    print(options[list_question.index(random_question)])
-    user_answer=(input("Enter (A,B,C,D): ")).upper()
-    answer.append(user_answer)
-    question_number+=1
+    round=5
+    list_corect_answer=[] # lista poprawnych odpowiedzi do wylosowanych pytań
+    list_user_answer =[]  #lista odpowiedzi użytkownika
+    user_correct_answer=0  #punkty uzytjownika
+    question_number=1      #numer pytania
+    for i in range(round):
+        random_question=random.choice(list_question)  #losowanie pytań
+        print(random_question)   #wyswietlenie losowego pytania
+
+        for option in options[list_question.index(random_question)]:
+            print(option)  # wyświetlenie wariantów odpowiedzi
+        user_answer=(input("Enter (A,B,C,D): ")).upper()      # wybór użytkownika
+        list_user_answer.append(user_answer)                  # dodanie do listy wszystkich odpowiedzi użytkownika
+        answer=(question.get(random_question))                # prawidłowa odpowiedź
+        list_corect_answer.append(answer)                     # dodanie do listy odpowiedzi poprawnych
+        user_correct_answer+=check_answer(answer, user_answer) # funkcja sprawdzająca poprawność
+        question_number+=1
+    display_score(list_corect_answer,list_user_answer, user_correct_answer)
 def check_answer(answer, user_answer):
+    if str(answer) == (user_answer):
+        #print("CORRECT")
+        return 1
+    else:
+        #print("WRONG")
+        return 0
+def display_score(list_corect_answer,list_user_answer, user_correct_answer ):
+    print("****************************************")
+    print("Result")
+    print("*****************************************")
 
+    print("Your Answer ", end=" ")
+    for i in list_user_answer:
+        print(i, end=" ")
+    print()
 
+    print("Correct Answer ", end=" ")
+    for i in list_corect_answer:
+        print(i, end=" ")
+    print()
 
+    score = (user_correct_answer/len(list_corect_answer))*100
+    print(f"Yor score is: {str(score)} %")
 
+def play_again():
+    response = (input("Do you want try again ? ( yes or no )---> ")).lower()
+    if response == "yes":
+        return True
+    else:
+        return False
 
+new_game()
+
+while play_again():
+    new_game()
+print("Thank you for playing, see you later ")
 
 
 
